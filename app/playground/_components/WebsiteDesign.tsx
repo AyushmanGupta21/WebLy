@@ -17,6 +17,28 @@ const HTML_CODE = `<!DOCTYPE html>
 
           <!-- Tailwind CSS -->
           <script src="https://cdn.tailwindcss.com"></script>
+          
+          <style>
+            /* Custom scrollbar styling */
+            ::-webkit-scrollbar {
+              width: 12px;
+              height: 12px;
+            }
+            ::-webkit-scrollbar-track {
+              background: rgba(0, 0, 0, 0.1);
+            }
+            ::-webkit-scrollbar-thumb {
+              background: rgba(0, 0, 0, 0.3);
+              border-radius: 6px;
+            }
+            ::-webkit-scrollbar-thumb:hover {
+              background: rgba(0, 0, 0, 0.5);
+            }
+            * {
+              scrollbar-width: thin;
+              scrollbar-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0.1);
+            }
+          </style>
 
           <!-- Flowbite CSS & JS -->
           <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet">
@@ -205,7 +227,7 @@ function WebsiteDesign({ generatedCode }: Props) {
       <div className='p-5 w-full flex items-center flex-col'>
         <iframe
           ref={iframeRef}
-          className={`${selectedScreenSize == 'web' ? 'w-full' : 'w-130'} flex-1 border-2 rounded-xl`}
+          className={`${selectedScreenSize == 'web' ? 'w-full' : 'w-130'} flex-1 border-2 rounded-xl bg-white`}
           sandbox="allow-scripts allow-same-origin"
         />
         <div className='mt-3 w-full'>
@@ -221,7 +243,7 @@ function WebsiteDesign({ generatedCode }: Props) {
 
       {selectedElement?.tagName == 'IMG' ?
         //@ts-ignore
-        <ImageSettingSection selectedEl={selectedElement} />
+        <ImageSettingSection selectedEl={selectedElement} clearSelection={() => setSelectedElement(null)} />
         : selectedElement ? <ElementSettingSection selectedEl={selectedElement} clearSelection={() => setSelectedElement(null)} /> : null
       }
     </div>

@@ -46,6 +46,7 @@
     "dotenv": "^17.2.3",
     "drizzle-orm": "^0.44.6",
     "embla-carousel-react": "^8.6.0",
+    "gsap": "^3.13.0",
     "imagekit": "^6.0.0",
     "input-otp": "^1.4.2",
     "lucide-react": "^0.544.0",
@@ -60,6 +61,7 @@
     "recharts": "^2.15.4",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.3.1",
+    "three": "^0.167.1",
     "uuid": "^13.0.0",
     "vaul": "^1.1.2",
     "zod": "^4.1.11"
@@ -70,6 +72,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/react-syntax-highlighter": "^15.5.13",
+    "@types/three": "^0.181.0",
     "drizzle-kit": "^0.31.5",
     "tailwindcss": "^4",
     "tsx": "^4.20.6",

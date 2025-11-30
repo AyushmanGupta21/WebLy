@@ -84,23 +84,24 @@ function WebPageTools({selectedScreenSize, setSelectedScreenSize, generatedCode}
     }
 
   return (
-    <div className='p-2 shadow rounded-xl w-full flex items-center justify-between'>
+    <div className='p-3 bg-black/30 backdrop-blur-md border border-white/10 rounded-xl w-full flex items-center justify-between'>
         <div className='flex gap-2'>
             <Button variant={'ghost'} 
-            className={`${selectedScreenSize=='web'? 'border border-primary':null}`}
-            onClick={()=>setSelectedScreenSize('web')}><Monitor /></Button>
+            className={`text-white hover:bg-white/20 hover:text-white transition-colors ${selectedScreenSize=='web'? 'bg-white/20 border border-blue-500':'border border-white/20'}`}
+            onClick={()=>setSelectedScreenSize('web')}><Monitor className='h-5 w-5' /></Button>
             <Button variant={'ghost'} 
-            className={`${selectedScreenSize=='mobile'? 'border border-primary':null}`}
-            onClick={()=>setSelectedScreenSize('mobile')}><TabletSmartphone /></Button>
+            className={`text-white hover:bg-white/20 hover:text-white transition-colors ${selectedScreenSize=='mobile'? 'bg-white/20 border border-blue-500':'border border-white/20'}`}
+            onClick={()=>setSelectedScreenSize('mobile')}><TabletSmartphone className='h-5 w-5' /></Button>
         </div>
-        <div className='flex  gap-2'>
+        <div className='flex gap-2'>
           <Button variant={'outline'}
+          className='bg-white/10 text-white border-white/20 hover:bg-white/30 hover:text-white hover:border-white/30 transition-colors'
           onClick={()=>ViewInNewTab()}
-          >View<SquareArrowOutUpRight /></Button>
+          >View<SquareArrowOutUpRight className='ml-2 h-4 w-4' /></Button>
           <ViewCodeBlock code={finalCode}>
-            <Button>Code<Code2Icon/></Button>
+            <Button className='bg-blue-600 hover:bg-blue-700 text-white transition-colors'>Code<Code2Icon className='ml-2 h-4 w-4' /></Button>
           </ViewCodeBlock>
-          <Button onClick={downloadCode}>Download<Download/></Button>
+          <Button onClick={downloadCode} className='bg-blue-600 hover:bg-blue-700 text-white transition-colors'>Download<Download className='ml-2 h-4 w-4' /></Button>
         </div>
     </div>
   )

@@ -4,21 +4,22 @@ export const usersTable = pgTable("users", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   name: varchar({ length: 255 }).notNull(),
   email: varchar({ length: 255 }).notNull().unique(),
-  credits: integer().default(2)
+  credits: integer().default(2),
+  maxCredits: integer().default(2)
 });
 
 
 
 export const projectTable = pgTable('projects', {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
-  projectId: varchar(),
+  projectId: varchar().unique(),
   createdBy: varchar().references(() => usersTable.email),
   createdOn: timestamp().defaultNow()
 })
 
 export const frameTable = pgTable('frames', {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
-  frameId: varchar(),
+  frameId: varchar().unique(),
   designCode:text(),
   projectId: varchar().references(() => projectTable.projectId),
   createdOn: timestamp().defaultNow()

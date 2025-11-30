@@ -12,9 +12,11 @@ function WorkspaceLayout({
     return (
         <SidebarProvider>
             <AppSidebar />
-            <div className='w-full'>
+            <div className='w-full h-screen overflow-hidden flex flex-col'>
                 <AppHeader />
-                {children}
+                <div className='flex-1 overflow-auto relative'>
+                    {children}
+                </div>
             </div>
         </SidebarProvider>
     )

@@ -16,7 +16,8 @@ export async function POST(req: NextRequest) {
         const data = {
             name: user?.fullName ?? 'NA',
             email: user.primaryEmailAddress.emailAddress,
-            credits: 2
+            credits: 2,
+            maxCredits: 2
         }
         const result = await db.insert(usersTable).values({
             ...data

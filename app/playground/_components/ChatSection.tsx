@@ -26,7 +26,7 @@ function ChatSection({ messages, onSend, loading }: Prop) {
 
   console.log(messages)
   return (
-    <div className='w-96 shadow h-[90vh] p-4 flex flex-col '>
+    <div className='w-96 h-[90vh] p-4 flex flex-col bg-black/30 backdrop-blur-sm border-r border-white/10'>
       {/* Message section */}
       <div className='flex-1 overflow-y-auto p-4 space-y-3 flex flex-col'>
         {messages?.length === 0 ?
@@ -35,24 +35,24 @@ function ChatSection({ messages, onSend, loading }: Prop) {
           ) : (
             messages.map((msg, index) => (
               <div key={index} className={`flex ${msg.role == 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`p-2 rounded-lg max-w-[80%] ${msg.role === 'user' ? 'bg-gray-100 text-black' : 'bg-gray-300 text-black'}`}>
+                <div className={`p-2 rounded-lg max-w-[80%] ${msg.role === 'user' ? 'bg-blue-600 text-white' : 'bg-gray-700 text-white'}`}>
                   {msg.content}
                 </div>
               </div>
             ))
           )}
           {loading&& <div className='flex justify-center items-center p-4 gap-2'>
-            <div className='animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-zinc-800'></div>
-            <span className='ml-2 text-zinc-800'>Thinking... Working on your request</span>
+            <div className='animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500'></div>
+            <span className='ml-2 text-gray-300'>Thinking... Working on your request</span>
           </div> }
       </div>
 
       {/* footer input */}
-      <div className='p-3 border-t flex items-center gap-2'>
+      <div className='p-3 border-t border-white/10 flex items-center gap-2'>
         <textarea
         value={input}
           placeholder='Describe your website design idea'
-          className='flex-1 resize-none border rounded-lg px-3 py-2 h-10 focus:outline-none focus:ring-2 overflow-hidden'
+          className='flex-1 resize-none border border-white/20 rounded-lg px-3 py-2 h-10 focus:outline-none focus:ring-2 focus:ring-blue-500 overflow-hidden bg-black/30 text-white placeholder:text-gray-400'
           onChange={(event) => setInput(event.target.value)}
           onKeyDown={handleKeyDown}
         />

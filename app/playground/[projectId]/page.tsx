@@ -7,6 +7,7 @@ import ElementSettingSection from '../_components/ElementSettingSection'
 import { useParams, useSearchParams } from 'next/navigation'
 import axios from 'axios'
 import { toast } from 'sonner'
+import FloatingLines from '@/components/FloatingLines'
 
 export type Frame = {
   projectId: string;
@@ -186,17 +187,32 @@ function PlayGround() {
   }
 
   return (
-    <div>
-      <PlaygroundHeader />
-      <div className='flex' >
-        {/* Chatsection */}
-        <ChatSection messages={messages ?? []}
-          onSend={(input: string) => SendMessage(input)}
-          loading={loading}
+    <div className="relative min-h-screen bg-black">
+      <div className="fixed inset-0 z-0" style={{ pointerEvents: 'auto' }}>
+        <FloatingLines 
+          enabledWaves={['top', 'middle', 'bottom']}
+          lineCount={5}
+          lineDistance={5}
+          bendRadius={5.0}
+          bendStrength={-1.5}
+          interactive={true}
+          parallax={true}
         />
-        {/* websiteDesign */}
-        <WebsiteDesign generatedCode={generatedCode?.replace('```', '')}/>
-        
+      </div>
+      <div className="relative z-10" style={{ pointerEvents: 'none' }}>
+        <div style={{ pointerEvents: 'auto' }}>
+          <PlaygroundHeader />
+          <div className='flex' >
+            {/* Chatsection */}
+            <ChatSection messages={messages ?? []}
+              onSend={(input: string) => SendMessage(input)}
+              loading={loading}
+            />
+            {/* websiteDesign */}
+            <WebsiteDesign generatedCode={generatedCode?.replace('```', '')}/>
+            
+          </div>
+        </div>
       </div>
     </div>
   )

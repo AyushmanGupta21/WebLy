@@ -9,6 +9,7 @@ import {
     ImageMinus,
     Loader2Icon,
     Images,
+    X,
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -21,6 +22,7 @@ import {
 import ImageKit from "imagekit";
 type Props = {
     selectedEl: HTMLImageElement;
+    clearSelection: () => void;
 };
 
 const transformOptions = [
@@ -35,7 +37,7 @@ const imagekit = new ImageKit({
     privateKey: process.env.NEXT_PUBLIC_IMAGEKIT_PRIVATE_KEY!,
     urlEndpoint: process.env.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT!
 });
-function ImageSettingSection({ selectedEl }: Props) {
+function ImageSettingSection({ selectedEl, clearSelection }: Props) {
     const [altText, setAltText] = useState(selectedEl.alt || "");
     const [width, setWidth] = useState<number>(selectedEl.width || 300);
     const [height, setHeight] = useState<number>(selectedEl.height || 200);
@@ -114,18 +116,35 @@ function ImageSettingSection({ selectedEl }: Props) {
         }
     }
 
+    const handleClose = () => {
+        if (selectedEl) {
+            selectedEl.style.outline = '';
+        }
+        clearSelection();
+    };
+
     return (
-        <div className="w-96 shadow p-4 space-y-4">
-            <h2 className="flex gap-2 items-center font-bold">
-                <ImageIcon /> Image Settings
-            </h2>
+        <div className="w-96 bg-black/30 backdrop-blur-md border border-white/10 shadow-xl p-4 space-y-4 rounded-xl mt-2 mr-2 overflow-auto max-h-[calc(100vh-120px)]">
+            <div className='flex justify-between items-center'>
+                <h2 className="flex gap-2 items-center font-bold text-white">
+                    <ImageIcon /> Image Settings
+                </h2>
+                <Button
+                    variant='ghost'
+                    size='icon'
+                    onClick={handleClose}
+                    className='text-white hover:bg-white/20 h-8 w-8'
+                >
+                    <X className='h-5 w-5' />
+                </Button>
+            </div>
 
             {/* Preview (clickable) */}
             <div className="flex justify-center">
                 <img
                     src={preview}
                     alt={altText}
-                    className="max-h-40 object-contain border rounded cursor-pointer hover:opacity-80"
+                    className="max-h-40 object-contain border border-white/20 rounded cursor-pointer hover:opacity-80"
                     onClick={openFileDialog}
                     onLoad={()=>setLoading(false)}
                 />
@@ -144,7 +163,7 @@ function ImageSettingSection({ selectedEl }: Props) {
             <Button
                 type="button"
                 variant="outline"
-                className="w-full"
+                className="w-full bg-white/10 border-white/20 text-white hover:bg-white/20"
                 onClick={saveUploadedFile}
                 disabled={loading}
             >
@@ -153,24 +172,24 @@ function ImageSettingSection({ selectedEl }: Props) {
 
             {/* Alt text */}
             <div>
-                <label className="text-sm">Prompt</label>
+                <label className="text-sm text-white">Prompt</label>
                 <Input
                     type="text"
                     value={altText}
                     onChange={(e) => setAltText(e.target.value)}
                     placeholder="Enter alt text"
-                    className="mt-1"
+                    className="mt-1 bg-white/10 border-white/20 text-white placeholder:text-gray-400"
                 />
             </div>
 
-            <Button className="w-full" onClick={GenerateAiImage}
+            <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white" onClick={GenerateAiImage}
             disabled={loading}>
               {loading&&<Loader2Icon className="animate-spin"/>}  Generate AI Image
             </Button>
 
             {/* Transform Buttons */}
             <div>
-                <label className="text-sm mb-1 block">AI Transform</label>
+                <label className="text-sm mb-1 block text-white">AI Transform</label>
                 <div className="flex gap-2 flex-wrap">
                     <TooltipProvider>
                         {transformOptions.map((opt) => {
@@ -181,7 +200,7 @@ function ImageSettingSection({ selectedEl }: Props) {
                                         <Button
                                             type="button"
                                             variant={preview.includes(opt.transformation) ? "default" : "outline"}
-                                            className="flex items-center justify-center p-2"
+                                            className={`flex items-center justify-center p-2 ${preview.includes(opt.transformation) ? 'bg-blue-600 hover:bg-blue-700' : 'bg-white/10 border-white/20 text-white hover:bg-white/20'}`}
                                             onClick={() => ApplyTransformation(opt.transformation)}
                                         >
                                             {opt.icon}
@@ -201,21 +220,21 @@ function ImageSettingSection({ selectedEl }: Props) {
             {activeTransforms.includes("resize") && (
                 <div className="flex gap-2">
                     <div className="flex-1">
-                        <label className="text-sm">Width</label>
+                        <label className="text-sm text-white">Width</label>
                         <Input
                             type="number"
                             value={width}
                             onChange={(e) => setWidth(Number(e.target.value))}
-                            className="mt-1"
+                            className="mt-1 bg-white/10 border-white/20 text-white"
                         />
                     </div>
                     <div className="flex-1">
-                        <label className="text-sm">Height</label>
+                        <label className="text-sm text-white">Height</label>
                         <Input
                             type="number"
                             value={height}
                             onChange={(e) => setHeight(Number(e.target.value))}
-                            className="mt-1"
+                            className="mt-1 bg-white/10 border-white/20 text-white"
                         />
                     </div>
                 </div>
@@ -223,13 +242,13 @@ function ImageSettingSection({ selectedEl }: Props) {
 
             {/* Border Radius */}
             <div>
-                <label className="text-sm">Border Radius</label>
+                <label className="text-sm text-white">Border Radius</label>
                 <Input
                     type="text"
                     value={borderRadius}
                     onChange={(e) => setBorderRadius(e.target.value)}
                     placeholder="e.g. 8px or 50%"
-                    className="mt-1"
+                    className="mt-1 bg-white/10 border-white/20 text-white placeholder:text-gray-400"
                 />
             </div>
         </div>

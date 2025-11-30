@@ -27,7 +27,7 @@ export async function POST(req:NextRequest) {
     })
 
     //update user credits 
-    if(!hasUnlimitedAccess){
+    if(!hasUnlimitedAccess && credits && !isNaN(credits)){
         //update user credits 
         const userResult=await db.update(usersTable).set({
             credits:credits-1

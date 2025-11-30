@@ -44,6 +44,11 @@ function Hero() {
     const hasUnlimitedAccess = has && has({ plan: 'unlimited' })
 
     const CreateNewProject = async () => {
+        if(!user){
+            // Store user input in sessionStorage before sign in
+            sessionStorage.setItem('pendingProjectInput', userInput || '');
+            return;
+        }
         if(!hasUnlimitedAccess && userDetail?.credits!<=0){
             toast.error('You have no credits left. Please upgrade your plan');
             return;
@@ -81,23 +86,23 @@ function Hero() {
     return (
         <div className='flex flex-col items-center h-[80vh] justify-center'>
             {/*Header & description*/}
-            <h2 className='font-bold text-6xl'>What should we Design?</h2>
-            <p className='mt-2 text-xl text-gray-500'>Generate, Edit and Explore design with AI, Export code as well</p>
+            <h2 className='font-bold text-6xl text-white'>What Would You Like WebLy to Build?</h2>
+            <p className='mt-2 text-xl text-gray-400'>Your imagination becomes reality with WebLy. Describe it and watch it build.</p>
             {/*input */}
             <div className='w-full max-w-2xl p-5 border  mt-5 rounded-2xl '>
                 <textarea placeholder='Describe your page design'
                     value={userInput}
                     onChange={(e) => setUserInput(e.target.value)}
-                    className='w-full h-24 focus:outline-none focus:ring-0 resize-none' />
+                    className='w-full h-24 focus:outline-none focus:ring-0 resize-none bg-transparent text-white placeholder:text-gray-400' />
 
                 <div className='flex justify-between item-center'>
-                    <Button variant={'ghost'}><ImagePlusIcon /></Button>
+                    <Button variant={'ghost'} className='hover:bg-white/10'><ImagePlusIcon className='text-gray-300' /></Button>
                     {!user ? < SignInButton mode='modal' forceRedirectUrl={'/workspace'}>
-                        <Button disabled={!userInput}><ArrowUp /></Button>
+                        <Button disabled={!userInput} onClick={CreateNewProject} className='bg-blue-600 hover:bg-blue-700 text-white'><ArrowUp /></Button>
                     </SignInButton> :
 
 
-                        <Button disabled={!userInput || loading} onClick={CreateNewProject}>
+                        <Button disabled={!userInput || loading} onClick={CreateNewProject} className='bg-blue-600 hover:bg-blue-700 text-white disabled:bg-gray-600 disabled:text-gray-400'>
                             {loading ? <Loader2Icon className='animate-spin' /> : <ArrowUp />} </Button>
 
                     }
