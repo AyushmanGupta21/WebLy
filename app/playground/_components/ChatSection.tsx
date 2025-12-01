@@ -6,9 +6,10 @@ import { ArrowUp } from 'lucide-react'
 type Prop = {
   messages: Messages[],
   onSend: any,
-  loading:boolean
+  loading:boolean,
+  isMobile?: boolean
 }
-function ChatSection({ messages, onSend, loading }: Prop) {
+function ChatSection({ messages, onSend, loading, isMobile }: Prop) {
   const [input, setInput] = useState<string>();
 
   const handleSend=()=>{
@@ -26,7 +27,9 @@ function ChatSection({ messages, onSend, loading }: Prop) {
 
   console.log(messages)
   return (
-    <div className='w-96 h-[90vh] p-4 flex flex-col bg-black/30 backdrop-blur-sm border-r border-white/10'>
+    <div className={`${
+      isMobile ? 'w-full h-full' : 'w-96 h-full'
+    } p-4 flex flex-col bg-black/30 backdrop-blur-sm border-r border-white/10`}>
       {/* Message section */}
       <div className='flex-1 overflow-y-auto p-4 space-y-3 flex flex-col'>
         {messages?.length === 0 ?

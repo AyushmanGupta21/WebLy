@@ -58,6 +58,27 @@ function PlayGround() {
   const [messages, setMessages] = useState<Messages[]>([]);
   const [generatedCode, setGeneratedCode] = useState<any>();
   const [hasAutoTriggered, setHasAutoTriggered] = useState(false);
+  const [selectedElement, setSelectedElement] = useState<HTMLElement | null>(null);
+  const [showChat, setShowChat] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  useEffect(() => {
+    // On mobile, hide chat when element is selected
+    if (isMobile && selectedElement) {
+      setShowChat(false);
+    } else if (isMobile && !selectedElement) {
+      setShowChat(true);
+    }
+  }, [selectedElement, isMobile]);
 
   useEffect(() => {
     frameId && GetFrameDetails()
@@ -187,30 +208,42 @@ function PlayGround() {
   }
 
   return (
-    <div className="relative min-h-screen bg-black">
+    <div className="relative min-h-screen bg-black overflow-hidden">
       <div className="fixed inset-0 z-0" style={{ pointerEvents: 'auto' }}>
         <FloatingLines 
-          enabledWaves={['top', 'middle', 'bottom']}
-          lineCount={5}
-          lineDistance={5}
-          bendRadius={5.0}
+          enabledWaves={isMobile ? ['middle'] : ['top', 'middle', 'bottom']}
+          lineCount={isMobile ? 3 : 5}
+          lineDistance={isMobile ? 3 : 5}
+          bendRadius={isMobile ? 3.0 : 5.0}
           bendStrength={-1.5}
-          interactive={true}
-          parallax={true}
+          interactive={!isMobile}
+          parallax={!isMobile}
         />
       </div>
       <div className="relative z-10" style={{ pointerEvents: 'none' }}>
         <div style={{ pointerEvents: 'auto' }}>
           <PlaygroundHeader />
-          <div className='flex' >
-            {/* Chatsection */}
-            <ChatSection messages={messages ?? []}
-              onSend={(input: string) => SendMessage(input)}
-              loading={loading}
-            />
+          <div className='flex flex-col md:flex-row h-[calc(100vh-64px)] overflow-hidden'>
+            {/* Chatsection - slides away on mobile when settings shown */}
+            <div className={`transition-all duration-300 ease-in-out ${
+              isMobile 
+                ? (showChat ? 'translate-x-0 w-full' : '-translate-x-full w-0 hidden') 
+                : 'translate-x-0 w-96'
+            }`}>
+              <ChatSection 
+                messages={messages ?? []}
+                onSend={(input: string) => SendMessage(input)}
+                loading={loading}
+                isMobile={isMobile}
+              />
+            </div>
             {/* websiteDesign */}
-            <WebsiteDesign generatedCode={generatedCode?.replace('```', '')}/>
-            
+            <WebsiteDesign 
+              generatedCode={generatedCode?.replace('```', '')}
+              onElementSelect={(el: HTMLElement | null) => setSelectedElement(el)}
+              selectedElement={selectedElement}
+              isMobile={isMobile}
+            />
           </div>
         </div>
       </div>

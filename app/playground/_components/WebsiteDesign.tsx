@@ -76,11 +76,21 @@ const HTML_CODE = `<!DOCTYPE html>
 
 type Props = {
   generatedCode: string;
+  onElementSelect?: (el: HTMLElement | null) => void;
+  selectedElement?: HTMLElement | null;
+  isMobile?: boolean;
 }
-function WebsiteDesign({ generatedCode }: Props) {
+function WebsiteDesign({ generatedCode, onElementSelect, selectedElement: externalSelectedElement, isMobile }: Props) {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [selectedScreenSize, setSelectedScreenSize] = useState('web');
   const [selectedElement, setSelectedElement] = useState<HTMLElement | null>();
+
+  const handleElementSelect = (el: HTMLElement | null) => {
+    setSelectedElement(el);
+    if (onElementSelect) {
+      onElementSelect(el);
+    }
+  };
   const { onSaveData, setOnSaveData } = useContext(OnSaveContext)
   const { projectId } = useParams();
   const params = useSearchParams();
@@ -162,7 +172,7 @@ function WebsiteDesign({ generatedCode }: Props) {
         selectedEl.setAttribute("contenteditable", "true");
         selectedEl.focus();
         console.log("Selected element: ", selectedEl);
-        setSelectedElement(selectedEl)
+        handleElementSelect(selectedEl);
       };
 
       const handleKeyDown = (e: KeyboardEvent) => {
@@ -170,6 +180,7 @@ function WebsiteDesign({ generatedCode }: Props) {
           selectedEl.style.outline = "";
           selectedEl.removeAttribute("contenteditable");
           selectedEl = null;
+          handleElementSelect(null);
         }
       };
 
@@ -222,30 +233,59 @@ function WebsiteDesign({ generatedCode }: Props) {
     }
   }
 
+  const clearSelection = () => {
+    handleElementSelect(null);
+    if (selectedElement) {
+      selectedElement.style.outline = '';
+      selectedElement.removeAttribute('contenteditable');
+    }
+  };
+
   return (
-    <div className='flex gap-2 w-full'>
-      <div className='p-5 w-full flex items-center flex-col'>
+    <div className={`flex ${
+      isMobile ? 'flex-col w-full' : 'flex-row gap-2 w-full'
+    } h-full overflow-hidden`}>
+      <div className={`${
+        isMobile ? 'w-full h-full' : 'w-full'
+      } p-2 md:p-5 flex items-center flex-col overflow-y-auto`}>
         <iframe
           ref={iframeRef}
-          className={`${selectedScreenSize == 'web' ? 'w-full' : 'w-130'} flex-1 border-2 rounded-xl bg-white`}
+          className={`${
+            isMobile 
+              ? 'w-full h-[60vh]' 
+              : selectedScreenSize == 'web' ? 'w-full h-[calc(100vh-200px)]' : 'w-130 h-[calc(100vh-200px)]'
+          } border-2 rounded-xl bg-white`}
           sandbox="allow-scripts allow-same-origin"
         />
         <div className='mt-3 w-full'>
-          <WebPageTools selectedScreenSize={selectedScreenSize}
+          <WebPageTools 
+            selectedScreenSize={selectedScreenSize}
             setSelectedScreenSize={(v: string) => setSelectedScreenSize(v)}
             generatedCode={generatedCode}
+            isMobile={isMobile}
           />
         </div>
       </div>
       {/* setting section */}
-      {/* @ts-ignore */}
-      {/* <ElementSettingSection selectedEl={selectedElement} clearSelection={()=>setSelectedElement(null)}/> */}
-
-      {selectedElement?.tagName == 'IMG' ?
-        //@ts-ignore
-        <ImageSettingSection selectedEl={selectedElement} clearSelection={() => setSelectedElement(null)} />
-        : selectedElement ? <ElementSettingSection selectedEl={selectedElement} clearSelection={() => setSelectedElement(null)} /> : null
-      }
+      {selectedElement && (
+        <div className={`${
+          isMobile 
+            ? 'fixed inset-0 z-50 bg-black/50 backdrop-blur-sm' 
+            : 'relative'
+        }`}>
+          <div className={`${
+            isMobile 
+              ? 'absolute right-0 top-0 h-full w-[85vw] max-w-md'
+              : 'relative w-auto'
+          }`}>
+            {selectedElement?.tagName == 'IMG' ?
+              //@ts-ignore
+              <ImageSettingSection selectedEl={selectedElement} clearSelection={clearSelection} isMobile={isMobile} />
+              : <ElementSettingSection selectedEl={selectedElement} clearSelection={clearSelection} isMobile={isMobile} />
+            }
+          </div>
+        </div>
+      )}
     </div>
   );
 }

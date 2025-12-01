@@ -15,9 +15,10 @@ import { Button } from '@/components/ui/button';
 type Props = {
     selectedEl: HTMLElement,
     clearSelection: () => void;
+    isMobile?: boolean;
 }
 
-function ElementSettingSection({ selectedEl, clearSelection }: Props) {
+function ElementSettingSection({ selectedEl, clearSelection, isMobile }: Props) {
     const [classes, setClasses] = useState<string[]>([]);
     const [newClass, setNewClass] = useState("");
     const [align, setAlign] = React.useState(

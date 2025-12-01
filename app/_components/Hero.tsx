@@ -84,16 +84,16 @@ function Hero() {
         }
     }
     return (
-        <div className='flex flex-col items-center h-[80vh] justify-center'>
+        <div className='flex flex-col items-center h-[80vh] justify-center px-4 md:px-0'>
             {/*Header & description*/}
-            <h2 className='font-bold text-6xl text-white'>What Would You Like WebLy to Build?</h2>
-            <p className='mt-2 text-xl text-gray-400'>Your imagination becomes reality with WebLy. Describe it and watch it build.</p>
+            <h2 className='font-bold text-3xl md:text-5xl lg:text-6xl text-white text-center'>What Would You Like WebLy to Build?</h2>
+            <p className='mt-2 text-base md:text-xl text-gray-400 text-center max-w-3xl'>Your imagination becomes reality with WebLy. Describe it and watch it build.</p>
             {/*input */}
-            <div className='w-full max-w-2xl p-5 border  mt-5 rounded-2xl '>
+            <div className='w-full max-w-2xl p-3 md:p-5 border mt-5 rounded-2xl mx-4 md:mx-0'>
                 <textarea placeholder='Describe your page design'
                     value={userInput}
                     onChange={(e) => setUserInput(e.target.value)}
-                    className='w-full h-24 focus:outline-none focus:ring-0 resize-none bg-transparent text-white placeholder:text-gray-400' />
+                    className='w-full h-20 md:h-24 text-sm md:text-base focus:outline-none focus:ring-0 resize-none bg-transparent text-white placeholder:text-gray-400' />
 
                 <div className='flex justify-between item-center'>
                     <Button variant={'ghost'} className='hover:bg-white/10'><ImagePlusIcon className='text-gray-300' /></Button>
@@ -110,11 +110,12 @@ function Hero() {
 
             </div>
             {/* suggestion list */}
-            <div className='mt-4 flex gap-3'>
+            <div className='mt-4 flex flex-wrap gap-2 md:gap-3 justify-center px-4 md:px-0'>
                 {suggestion.map((suggestion, index) => (
                     <Button key={index} variant={'outline'}
-                        onClick={() => setUserInput(suggestion.prompt)}>
-                        <suggestion.icon />
+                        onClick={() => setUserInput(suggestion.prompt)}
+                        className='text-xs md:text-sm'>
+                        <suggestion.icon className='h-4 w-4 md:h-5 md:w-5' />
                         {suggestion.label}</Button>
                 ))}
             </div>

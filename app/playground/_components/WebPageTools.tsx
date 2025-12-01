@@ -47,7 +47,7 @@ const HTML_CODE=`<!DOCTYPE html>
         {code}
       </body>
       </html>`
-function WebPageTools({selectedScreenSize, setSelectedScreenSize, generatedCode}:any) {
+function WebPageTools({selectedScreenSize, setSelectedScreenSize, generatedCode, isMobile}:any) {
 
     const [finalCode, setFinalCode]=useState<string>();
     useEffect(()=>{

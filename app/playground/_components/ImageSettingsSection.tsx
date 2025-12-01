@@ -23,6 +23,7 @@ import ImageKit from "imagekit";
 type Props = {
     selectedEl: HTMLImageElement;
     clearSelection: () => void;
+    isMobile?: boolean;
 };
 
 const transformOptions = [
@@ -37,7 +38,7 @@ const imagekit = new ImageKit({
     privateKey: process.env.NEXT_PUBLIC_IMAGEKIT_PRIVATE_KEY!,
     urlEndpoint: process.env.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT!
 });
-function ImageSettingSection({ selectedEl, clearSelection }: Props) {
+function ImageSettingSection({ selectedEl, clearSelection, isMobile }: Props) {
     const [altText, setAltText] = useState(selectedEl.alt || "");
     const [width, setWidth] = useState<number>(selectedEl.width || 300);
     const [height, setHeight] = useState<number>(selectedEl.height || 200);
@@ -124,7 +125,9 @@ function ImageSettingSection({ selectedEl, clearSelection }: Props) {
     };
 
     return (
-        <div className="w-96 bg-black/30 backdrop-blur-md border border-white/10 shadow-xl p-4 space-y-4 rounded-xl mt-2 mr-2 overflow-auto max-h-[calc(100vh-120px)]">
+        <div className={`${
+            isMobile ? 'w-full h-full' : 'w-96 max-h-[calc(100vh-120px)]'
+        } bg-black/30 backdrop-blur-md border border-white/10 shadow-xl p-4 space-y-4 rounded-xl mt-2 mr-2 overflow-auto`}>
             <div className='flex justify-between items-center'>
                 <h2 className="flex gap-2 items-center font-bold text-white">
                     <ImageIcon /> Image Settings
