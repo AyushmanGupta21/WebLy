@@ -84,24 +84,29 @@ function WebPageTools({selectedScreenSize, setSelectedScreenSize, generatedCode,
     }
 
   return (
-    <div className='p-3 bg-black/30 backdrop-blur-md border border-white/10 rounded-xl w-full flex items-center justify-between'>
-        <div className='flex gap-2'>
+    <div className={`p-2 md:p-3 bg-black/30 backdrop-blur-md border border-white/10 rounded-xl w-full ${
+      isMobile ? 'flex flex-col gap-2' : 'flex items-center justify-between'
+    }`}>
+        <div className='flex gap-2 justify-center'>
             <Button variant={'ghost'} 
+            size={isMobile ? 'sm' : 'default'}
             className={`text-white hover:bg-white/20 hover:text-white transition-colors ${selectedScreenSize=='web'? 'bg-white/20 border border-blue-500':'border border-white/20'}`}
-            onClick={()=>setSelectedScreenSize('web')}><Monitor className='h-5 w-5' /></Button>
+            onClick={()=>setSelectedScreenSize('web')}><Monitor className={isMobile ? 'h-4 w-4' : 'h-5 w-5'} /></Button>
             <Button variant={'ghost'} 
+            size={isMobile ? 'sm' : 'default'}
             className={`text-white hover:bg-white/20 hover:text-white transition-colors ${selectedScreenSize=='mobile'? 'bg-white/20 border border-blue-500':'border border-white/20'}`}
-            onClick={()=>setSelectedScreenSize('mobile')}><TabletSmartphone className='h-5 w-5' /></Button>
+            onClick={()=>setSelectedScreenSize('mobile')}><TabletSmartphone className={isMobile ? 'h-4 w-4' : 'h-5 w-5'} /></Button>
         </div>
-        <div className='flex gap-2'>
+        <div className='flex gap-2 justify-center'>
           <Button variant={'outline'}
+          size={isMobile ? 'sm' : 'default'}
           className='bg-white/10 text-white border-white/20 hover:bg-white/30 hover:text-white hover:border-white/30 transition-colors'
           onClick={()=>ViewInNewTab()}
-          >View<SquareArrowOutUpRight className='ml-2 h-4 w-4' /></Button>
+          >{isMobile ? <SquareArrowOutUpRight className='h-4 w-4' /> : <><span>View</span><SquareArrowOutUpRight className='ml-2 h-4 w-4' /></>}</Button>
           <ViewCodeBlock code={finalCode}>
-            <Button className='bg-blue-600 hover:bg-blue-700 text-white transition-colors'>Code<Code2Icon className='ml-2 h-4 w-4' /></Button>
+            <Button size={isMobile ? 'sm' : 'default'} className='bg-blue-600 hover:bg-blue-700 text-white transition-colors'>{isMobile ? <Code2Icon className='h-4 w-4' /> : <><span>Code</span><Code2Icon className='ml-2 h-4 w-4' /></>}</Button>
           </ViewCodeBlock>
-          <Button onClick={downloadCode} className='bg-blue-600 hover:bg-blue-700 text-white transition-colors'>Download<Download className='ml-2 h-4 w-4' /></Button>
+          <Button size={isMobile ? 'sm' : 'default'} onClick={downloadCode} className='bg-blue-600 hover:bg-blue-700 text-white transition-colors'>{isMobile ? <Download className='h-4 w-4' /> : <><span>Download</span><Download className='ml-2 h-4 w-4' /></>}</Button>
         </div>
     </div>
   )

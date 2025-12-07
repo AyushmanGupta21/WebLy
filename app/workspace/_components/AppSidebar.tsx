@@ -43,7 +43,7 @@ export function AppSidebar() {
     }
 
     return (
-        <Sidebar className='bg-black/30 backdrop-blur-md border-r border-white/10'>
+        <Sidebar className='bg-black/30 backdrop-blur-md border-r border-white/10 md:bg-black/30'>
             <SidebarHeader className='p-5'>
                 <Link href={'/workspace'} className='flex items-center gap-2 cursor-pointer'>
                     <Image src='/logo.svg' alt="logo" width={35} height={35} className='rounded-lg' />

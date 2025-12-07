@@ -89,7 +89,9 @@ function ElementSettingSection({ selectedEl, clearSelection, isMobile }: Props) 
     };
 
     return (
-        <div className='w-96 bg-black/30 backdrop-blur-md border border-white/10 shadow-xl p-4 space-y-4 overflow-y-auto overflow-x-hidden max-h-[calc(100vh-120px)] rounded-xl mt-2 mr-2'>
+        <div className={`${
+            isMobile ? 'w-full h-full' : 'w-96 max-h-[calc(100vh-120px)] mt-2 mr-2'
+        } bg-black/30 backdrop-blur-md border border-white/10 shadow-xl p-4 space-y-4 overflow-y-auto overflow-x-hidden rounded-xl`}>
             <div className='flex justify-between items-center'>
                 <h2 className='flex gap-2 items-center font-bold text-white'>
                     <SwatchBook /> Settings
