@@ -173,6 +173,13 @@
   }
 }
 
+/* Workspace Sidebar Mobile Dark Theme */
+[data-sidebar="sidebar"][data-mobile="true"] {
+  background: rgba(0, 0, 0, 0.3) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+}
+
 /* Mobile Optimizations */
 @layer utilities {
   /* Prevent text selection during drag on mobile */
