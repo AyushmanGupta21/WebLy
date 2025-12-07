@@ -43,7 +43,7 @@ export function AppSidebar() {
     }
 
     return (
-        <Sidebar className='!bg-black/30 backdrop-blur-md border-r border-white/10 [&_[data-slot="sidebar"]]:!bg-black/30 [&_[data-slot="sidebar"]]:backdrop-blur-md'>
+        <Sidebar className='!bg-black/30 backdrop-blur-md border-r border-white/10 [&_[data-slot="sidebar"]]:!bg-black/30 [&_[data-slot="sidebar"]]:backdrop-blur-md [&_[data-slot="sheet-content"]]:!bg-black/30 [&_[data-slot="sheet-content"]]:backdrop-blur-md'>
             <SidebarHeader className='p-5'>
                 <Link href={'/workspace'} className='flex items-center gap-2 cursor-pointer'>
                     <Image src='/logo.svg' alt="logo" width={35} height={35} className='rounded-lg' />
