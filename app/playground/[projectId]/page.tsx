@@ -208,7 +208,7 @@ function PlayGround() {
   }
 
   return (
-    <div className="relative min-h-screen bg-black overflow-hidden">
+    <div className="relative h-screen bg-black overflow-hidden">
       <div className="fixed inset-0 z-0" style={{ pointerEvents: 'auto' }}>
         <FloatingLines 
           enabledWaves={isMobile ? ['middle'] : ['top', 'middle', 'bottom']}
@@ -220,10 +220,10 @@ function PlayGround() {
           parallax={!isMobile}
         />
       </div>
-      <div className="relative z-10" style={{ pointerEvents: 'none' }}>
-        <div style={{ pointerEvents: 'auto' }}>
+      <div className="relative z-10 h-full" style={{ pointerEvents: 'none' }}>
+        <div className="h-full flex flex-col" style={{ pointerEvents: 'auto' }}>
           <PlaygroundHeader />
-          <div className='flex flex-col md:flex-row h-[calc(100vh-64px)] overflow-hidden'>
+          <div className='flex flex-col md:flex-row flex-1 overflow-hidden'>
             {/* Chatsection - slides away on mobile when settings shown */}
             <div className={`transition-all duration-300 ease-in-out ${
               isMobile 
