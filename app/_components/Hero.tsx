@@ -83,6 +83,16 @@ function Hero() {
             console.log(e)
         }
     }
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            if (userInput?.trim()) {
+                CreateNewProject();
+            }
+        }
+    }
+
     return (
         <div className='flex flex-col items-center h-[80vh] justify-center px-4 md:px-0'>
             {/*Header & description*/}
@@ -93,6 +103,7 @@ function Hero() {
                 <textarea placeholder='Describe your page design'
                     value={userInput}
                     onChange={(e) => setUserInput(e.target.value)}
+                    onKeyDown={handleKeyDown}
                     className='w-full h-20 md:h-24 text-sm md:text-base focus:outline-none focus:ring-0 resize-none bg-transparent text-white placeholder:text-gray-400' />
 
                 <div className='flex justify-between item-center'>
