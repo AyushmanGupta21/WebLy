@@ -219,3 +219,45 @@
     backface-visibility: hidden;
   }
 }
+
+/* Clerk Auth Component Responsive Styles */
+@layer components {
+  /* Ensure Clerk modals are responsive on all devices */
+  .cl-component,
+  .cl-rootBox,
+  .cl-card {
+    max-width: 100% !important;
+    max-height: 90vh !important;
+    overflow-y: auto !important;
+  }
+  
+  /* Fix for mobile devices */
+  @media (max-width: 640px) {
+    .cl-component,
+    .cl-rootBox,
+    .cl-card {
+      max-height: 85vh !important;
+      width: 95vw !important;
+    }
+    
+    .cl-modalContent {
+      max-height: 85vh !important;
+      overflow-y: auto !important;
+    }
+  }
+  
+  /* Medium devices - tablets */
+  @media (min-width: 641px) and (max-width: 1024px) {
+    .cl-component,
+    .cl-rootBox,
+    .cl-card {
+      max-height: 90vh !important;
+    }
+  }
+  
+  /* Ensure scrollable content within Clerk components */
+  .cl-internal-scroll {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+}

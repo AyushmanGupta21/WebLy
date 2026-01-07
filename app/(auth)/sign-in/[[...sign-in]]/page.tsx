@@ -3,7 +3,7 @@ import FloatingLines from '@/components/FloatingLines'
 
 export default function Page() {
     return (
-        <div className='relative flex items-center justify-center h-screen'>
+        <div className='relative flex items-center justify-center min-h-screen py-8'>
             <div className="fixed inset-0 z-0" style={{ pointerEvents: 'auto' }}>
                 <FloatingLines 
                     enabledWaves={['top', 'middle', 'bottom']}
