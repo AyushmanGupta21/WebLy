@@ -116,31 +116,32 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
-  
+
   /* Custom Scrollbar Styling */
   ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
   }
-  
+
   ::-webkit-scrollbar-track {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 4px;
   }
-  
+
   ::-webkit-scrollbar-thumb {
     background: rgba(255, 255, 255, 0.2);
     border-radius: 4px;
     transition: background 0.2s ease;
   }
-  
+
   ::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.3);
   }
-  
+
   /* Firefox Scrollbar */
   * {
     scrollbar-width: thin;
@@ -182,36 +183,41 @@
 
 /* Mobile Optimizations */
 @layer utilities {
+
   /* Prevent text selection during drag on mobile */
   .touch-action-none {
     touch-action: none;
   }
-  
+
   /* Smooth scrolling for mobile */
   @media (max-width: 768px) {
     * {
       -webkit-overflow-scrolling: touch;
     }
-    
+
     /* Reduce animation complexity on mobile */
     .reduce-motion {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
     }
-    
+
     /* Optimize tap targets for mobile */
-    button, a, [role="button"] {
+    button,
+    a,
+    [role="button"] {
       min-height: 44px;
       min-width: 44px;
     }
-    
+
     /* Prevent zoom on input focus */
-    input, select, textarea {
+    input,
+    select,
+    textarea {
       font-size: 16px !important;
     }
   }
-  
+
   /* Hardware acceleration for smooth animations */
   .gpu-accelerate {
     transform: translateZ(0);
@@ -222,42 +228,54 @@
 
 /* Clerk Auth Component Responsive Styles */
 @layer components {
-  /* Ensure Clerk modals are responsive on all devices */
+
+  /* Ensure Clerk modals fit properly on all devices without scrollbars */
   .cl-component,
   .cl-rootBox,
   .cl-card {
     max-width: 100% !important;
-    max-height: 90vh !important;
-    overflow-y: auto !important;
+    overflow: visible !important;
   }
-  
-  /* Fix for mobile devices */
+
+  /* Scale down on smaller screens to fit without scrolling */
+  @media (max-height: 700px) {
+
+    .cl-component,
+    .cl-rootBox,
+    .cl-card {
+      transform: scale(0.85) !important;
+      transform-origin: center !important;
+    }
+  }
+
+  @media (max-height: 600px) {
+
+    .cl-component,
+    .cl-rootBox,
+    .cl-card {
+      transform: scale(0.75) !important;
+      transform-origin: center !important;
+    }
+  }
+
+  @media (max-height: 500px) {
+
+    .cl-component,
+    .cl-rootBox,
+    .cl-card {
+      transform: scale(0.65) !important;
+      transform-origin: center !important;
+    }
+  }
+
+  /* Mobile width adjustments */
   @media (max-width: 640px) {
+
     .cl-component,
     .cl-rootBox,
     .cl-card {
-      max-height: 85vh !important;
       width: 95vw !important;
+      max-width: 400px !important;
     }
-    
-    .cl-modalContent {
-      max-height: 85vh !important;
-      overflow-y: auto !important;
-    }
-  }
-  
-  /* Medium devices - tablets */
-  @media (min-width: 641px) and (max-width: 1024px) {
-    .cl-component,
-    .cl-rootBox,
-    .cl-card {
-      max-height: 90vh !important;
-    }
-  }
-  
-  /* Ensure scrollable content within Clerk components */
-  .cl-internal-scroll {
-    overflow-y: auto !important;
-    -webkit-overflow-scrolling: touch !important;
   }
 }
