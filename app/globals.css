@@ -229,53 +229,14 @@
 /* Clerk Auth Component Responsive Styles */
 @layer components {
 
-  /* Ensure Clerk modals fit properly on all devices without scrollbars */
-  .cl-component,
-  .cl-rootBox,
-  .cl-card {
-    max-width: 100% !important;
-    overflow: visible !important;
-  }
-
-  /* Scale down on smaller screens to fit without scrolling */
-  @media (max-height: 700px) {
-
-    .cl-component,
-    .cl-rootBox,
-    .cl-card {
-      transform: scale(0.85) !important;
-      transform-origin: center !important;
-    }
-  }
-
-  @media (max-height: 600px) {
-
-    .cl-component,
-    .cl-rootBox,
-    .cl-card {
-      transform: scale(0.75) !important;
-      transform-origin: center !important;
-    }
-  }
-
-  @media (max-height: 500px) {
-
-    .cl-component,
-    .cl-rootBox,
-    .cl-card {
-      transform: scale(0.65) !important;
-      transform-origin: center !important;
-    }
-  }
-
-  /* Mobile width adjustments */
-  @media (max-width: 640px) {
+  /* Keep modal at original size on all devices */
+  /* Only constrain width on very small mobile devices */
+  @media (max-width: 400px) {
 
     .cl-component,
     .cl-rootBox,
     .cl-card {
       width: 95vw !important;
-      max-width: 400px !important;
     }
   }
 }
