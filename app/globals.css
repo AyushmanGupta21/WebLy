@@ -229,45 +229,8 @@
 /* Clerk Auth Component Responsive Styles */
 @layer components {
 
-  /* Keep modal at original size on normal/large screens */
-  /* Scale down intelligently on shorter viewports to prevent cutoff */
-
-  /* Very short screens - scale to 70% */
-  @media (max-height: 600px) {
-
-    .cl-component,
-    .cl-rootBox,
-    .cl-card {
-      transform: scale(0.7) !important;
-      transform-origin: center !important;
-    }
-  }
-
-  /* Short screens - scale to 80% */
-  @media (min-height: 601px) and (max-height: 700px) {
-
-    .cl-component,
-    .cl-rootBox,
-    .cl-card {
-      transform: scale(0.8) !important;
-      transform-origin: center !important;
-    }
-  }
-
-  /* Medium-short screens - scale to 90% */
-  @media (min-height: 701px) and (max-height: 800px) {
-
-    .cl-component,
-    .cl-rootBox,
-    .cl-card {
-      transform: scale(0.9) !important;
-      transform-origin: center !important;
-    }
-  }
-
-  /* 800px+ height: Keep at 100% original size */
-
-  /* Mobile width adjustments */
+  /* Keep modal at original size on all devices */
+  /* Only constrain width on very small mobile devices */
   @media (max-width: 400px) {
 
     .cl-component,
