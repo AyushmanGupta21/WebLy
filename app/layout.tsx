@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { Outfit } from "next/font/google";
+import { Outfit, JetBrains_Mono } from "next/font/google";
+import "@astryxdesign/core/reset.css";
+import "@astryxdesign/core/astryx.css";
 import "./globals.css";
 import {
   ClerkProvider,
@@ -30,6 +32,11 @@ export const metadata: Metadata = {
 };
 
 const outfit = Outfit({subsets:['latin']})
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-jetbrains-mono',
+  weight: ['300', '400', '500', '700', '800'],
+})
 
 export default function RootLayout({
   children,
@@ -40,7 +47,7 @@ export default function RootLayout({
     <ClerkProvider afterSignInUrl="/workspace" afterSignUpUrl="/workspace">
     <html lang="en" >
       <body
-        className={outfit.className}
+        className={`${outfit.className} ${jetbrainsMono.variable}`}
         suppressHydrationWarning
       >
         <Provider>
